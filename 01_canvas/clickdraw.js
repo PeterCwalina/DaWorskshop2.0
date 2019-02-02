@@ -1,3 +1,7 @@
+//Team SlavSquad
+//SofDev Period 8
+//K02 connecting the dots
+//2019-2-1
 var state = true;
 var c = document.getElementById("slate");
 var ctx = c.getContext("2d");
