@@ -26,14 +26,23 @@ To import:
         Note: If either stays, mongoDB will recognize and import the json as a single document; this results the entire db returning for every call that you make.
     2. Enclose the json with []. This is needed for the next step.
     3. Include the --jsonArray flag when mongoimporting. As the json file is already arranged in an array-like format and all you did was switch the first pair of {} to [], mongo will recognize this as an array and import the documents correctly.
+        Note: Ignore this step if you don't import on the Droplet.
 '''
 
 import pymongo
+import json
 
 SERVER_ADDR="157.230.0.112"
 connection =pymongo.MongoClient(SERVER_ADDR)
-db = connection.headphones_cause_vaccines
-collection = db.pokemon
+db = connection['headphones_cause_vaccines']
+collection = db['pokemon-test']
+
+# open json
+file = open('db.json').read()
+data = json.loads(file)
+
+x = collection.insert_many(data)
+
 
 def find_pokemon_by_num(num):
     '''
