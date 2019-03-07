@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>pokemans</title>
+</head>
+
+<body>
+
+  <form action="/newaddress" method="post">
+    IP: <br>
+    <input type="text" name="ip"> <br><br>
+    Pick a pokemon id<br>
+    ID: <input type="number" name="id"> <br>
+    <button type="submit" name="button">Submit</button>
+  </form>
+  <p>
+    {% set msgs = get_flashed_messages() %}
+    {% for each in msgs %}
+    {{each}}
+    <br>
+    {% endfor %}
+    {% if id %}
+      ID: {{id}} <br>
+      Name: {{name}} <br>
+      Typeage:
+        {% for each in type %}
+          {{each}}
+        {% endfor %} <br>
+      Weaknesses:
+        {% for each in weaknesses %}
+          {{each}}
+        {% endfor %} <br>
+      <img src={{img}}>
+    {% endif %}
+  </p>
+
+</body>
+
+</html>

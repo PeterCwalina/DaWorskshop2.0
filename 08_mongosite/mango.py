@@ -32,23 +32,39 @@ To import:
 import pymongo
 import json
 
-SERVER_ADDR="104.248.229.75"
-connection =pymongo.MongoClient(SERVER_ADDR)
-db = connection['headphones_cause_vaccines']
-collection = db['pokemon-test']
-
+#connection =pymongo.MongoClient(SERVER_ADDR)
+#db = connection['headphones_cause_vaccines']
+#collection = db['pokemon-test']
 # open json
-file = open('db.json').read()
-data = json.loads(file)
+#file = open('db.json').read()
+#data = json.loads(file)
+#x = collection.insert_many(data)
 
-x = collection.insert_many(data)
+def connect(ip):
+
+    global SERVER_ADDR
+    global connection
+    global db
+    global collection
+    if SERVER_ADDR:
+        connection =pymongo.MongoClient(SERVER_ADDR)
+        connection.drop_database('pokedex')
+    SERVER_ADDR=ip
+    connection =pymongo.MongoClient(SERVER_ADDR)
+    db = connection['pokedex']
+    collection = db['pokemon']
+
+    file = open('db.json').read()
+    data = json.loads(file)
+
+    x = collection.insert_many(data)
 
 
-def find_pokemon_by_num(num):
+def find_pokemon_by_id(id):
     '''
-    finds pokemon by num.
+    finds pokemon by id.
     '''
-    pokemon = collection.find({'num':num})
+    pokemon = collection.find({'id':id})
     return [poke for poke in pokemon]
 
 def find_pokemon_by_steps(steps):
@@ -100,14 +116,14 @@ def type_id_weakness_find(type, id, weakness):
     return [poke for poke in pokemon]
 
 
-if __name__ == '__main__':
-    print('Printing num...')
-    print(find_pokemon_by_num('049'))
-    print('Printing steps....')
-    print(find_pokemon_by_steps("5 km"))
-    print('Printing dual types...')
-    print(type_find('Ground', 'Rock'))
-    print('Printing type and spawn...')
-    print(type_spawn_find('Normal', 0.2))
-    print('Printing type, id, and weakness...')
-    print(type_id_weakness_find('Water', 12, 'Rock'))
+#if __name__ == '__main__':
+    #print('Printing num...')
+    #print(find_pokemon_by_num('049'))
+    #print('Printing steps....')
+    #print(find_pokemon_by_steps("5 km"))
+    #print('Printing dual types...')
+    #print(type_find('Ground', 'Rock'))
+    #print('Printing type and spawn...')
+    #print(type_spawn_find('Normal', 0.2))
+    #print('Printing type, id, and weakness...')
+    #print(type_id_weakness_find('Water', 12, 'Rock'))
