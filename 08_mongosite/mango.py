@@ -32,7 +32,7 @@ To import:
 import pymongo
 import json
 
-SERVER_ADDR="157.230.0.112"
+SERVER_ADDR="104.248.229.75"
 connection =pymongo.MongoClient(SERVER_ADDR)
 db = connection['headphones_cause_vaccines']
 collection = db['pokemon-test']
