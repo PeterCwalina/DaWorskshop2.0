@@ -39,6 +39,8 @@ import json
 #file = open('db.json').read()
 #data = json.loads(file)
 #x = collection.insert_many(data)
+SERVER_ADDR = "104.248.229.75"
+connection =pymongo.MongoClient(SERVER_ADDR)
 
 def connect(ip):
 
