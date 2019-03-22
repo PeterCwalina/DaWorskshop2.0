@@ -19,7 +19,7 @@ var data = [
 var xaxis = ["Price in $"];
 var yaxis = ["Temperature in °C"];
 
-var width = 500,
+var width = 700,
     height = 700;
 
 var x = d3.scaleLinear()
@@ -28,6 +28,10 @@ var x = d3.scaleLinear()
 
 var y = d3.scaleLinear()
     .range([0,height])
+    .domain([0,d3.max(data,function(d){return d.price;})]);
+
+var ya = d3.scaleLinear()
+    .range([height,0])
     .domain([0,d3.max(data,function(d){return d.price;})]);
 
 
@@ -40,16 +44,30 @@ chart.selectAll("circle")
      .enter()
      .append("circle")
        .attr("cx",function(d){return x(d.temp); })
-       .attr("cy",function(d){return y(d.price); });
+       .attr("cy",function(d){return height - y(d.price); });
 
 var text = chart.selectAll("text");
+
+var x_axis = d3.axisTop()
+               .scale(x);
+
+var y_axis = d3.axisLeft()
+               .scale(ya);
+
+chart.append("g")
+     .attr("transform",'translate(30, '+ (height-20)+ ')')
+     .call(x_axis);
+
+chart.append("g")
+     .attr("transform",'translate(30,-20)')
+     .call(y_axis);
 
 text.data(data)
     .enter()
     .append("text")
       .text(function(d){return d.temp + "°C,$" + d.price;})
       .attr("x", function(d){return x(d.temp) - 10;})
-      .attr("y", function(d){return y(d.price);});
+      .attr("y", function(d){return height - y(d.price);});
 
 text.data(xaxis)
     .enter()
