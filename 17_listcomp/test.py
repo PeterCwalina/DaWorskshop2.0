@@ -1,7 +1,8 @@
+import math
 def check(list1,list2):
     return list1 == list2
 
-first  = [str(x) + str(x) for x in range(5) ]
+first  = [str(2*x) + str(2*  x) for x in range(5) ]
 first2 = []
 for x in range(5):
     first2.append(str(x)+str(x))
@@ -44,3 +45,21 @@ for x in range(99):
 
 print(fourth)
 print(fourth2)
+
+
+
+
+print("triples:")
+triples = [(x,y,math.sqrt(x*x + y*y)) for x in range(1,20) for y in range(1,20) if math.sqrt(x*x + y*y)-math.floor(math.sqrt(x*x+y*y)) == 0]
+print(triples)
+
+testList = [5,4,12,17,39,31,14]
+def quickSort(list):
+    if list == []:
+        return []
+    else:
+        pivot = list[0]
+        lesser = quickSort([x for x in list[1:] if x < pivot])
+        greater = quickSort([x for x in list[1:] if x >= pivot])
+        return lesser + [pivot] + greater
+print(quickSort(testList))
